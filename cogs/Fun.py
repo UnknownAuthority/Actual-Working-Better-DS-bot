@@ -22,7 +22,7 @@ class Fun(commands.Cog):
     await ctx.send('hello!')
   @commands.command()
   async def quote(self, ctx):
-    await ctx.send(get_quote()+'\n made possible by Zenquotes')
+    await ctx.send(get_quote()+'\nFunction made possible by Zenquotes')
   
 
 

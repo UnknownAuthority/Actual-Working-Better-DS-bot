@@ -3,6 +3,7 @@ from discord.ext import commands
 import re
 import requests
 import json
+import time
 #code from freecodecamp
 def get_quote():
   response = requests.get("https://zenquotes.io/api/random")
@@ -23,9 +24,10 @@ class Fun(commands.Cog):
   
   @commands.Cog.listener()
   async def on_message(self, message):
+
     if message.author == self.client.user:
         return
-    
+
     args = message.content.lower().split(" ")
     main_arg = args[0]
     regex = re.compile(r"ree+\b")

@@ -13,7 +13,7 @@ class Mod(commands.Cog):
     #iterate through the members
     for member in members:  
       await member.kick(reason = reason)
-      await ctx.send(f'{member} has been yeeted ')
+      await ctx.send(embed = (discord.Embed(title="Kicked Member",description=f"Kicked {member}", color=0xFF5733)))
   #Ban/MassBan Command
   @commands.command(aliases=['bean'])
   @commands.has_permissions(ban_members=True)
@@ -21,7 +21,8 @@ class Mod(commands.Cog):
     #iterate through the members
     for member in members:
       await member.ban(reason = reason, delete_message_days=deletedays)
-      await ctx.send(f'{member} has been beaned ')
+      await ctx.send(embed = (discord.Embed(title="Banned Member",description=f"banned {member}", color=0xFF5733)))
+    #    
   
 
 def setup(client):

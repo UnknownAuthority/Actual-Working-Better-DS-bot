@@ -3,7 +3,7 @@ from discord.ext import commands
 import re
 import requests
 import json
-#code from 
+#code from freecodecamp
 def get_quote():
   response = requests.get("https://zenquotes.io/api/random")
   json_data = json.loads(response.text)
@@ -56,8 +56,7 @@ class Fun(commands.Cog):
         await message.channel.send(
             'https://tenor.com/view/ree-pepe-triggered-angry-ahhhh-gif-13627544'
         )
-    elif message.author.id == 467627785016311829:
-      await message.channel.send('get outta here!')
+
     
 
 

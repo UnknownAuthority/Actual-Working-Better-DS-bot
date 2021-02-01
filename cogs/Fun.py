@@ -47,7 +47,7 @@ class Fun(commands.Cog):
             messagecont = message.content.lower()
             if x == messagecont:
                 await message.channel.send(y)
-                
+
             elif pattern.match(messagecont):
                 await message.channel.send(
                     'https://tenor.com/view/ree-pepe-triggered-angry-ahhhh-gif-13627544'

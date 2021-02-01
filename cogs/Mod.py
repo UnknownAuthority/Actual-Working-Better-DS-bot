@@ -14,12 +14,12 @@ class Mod(commands.Cog):
                    ctx,
                    members: commands.Greedy[discord.Member],
                    *,
-                   reason=None):
+                   reason='Unavailable'):
         #iterate through the members
         for member in members:
             await member.kick(reason=reason)
             #make an embed
-            embed = embed = embed = discord.Embed(
+            embed = discord.Embed(
                 title='Kicked Member', description=f'Kicked {member}')
             embed.set_author(name='BetterBot')
             embed.add_field(name='Reason', value=reason, inline=True)
@@ -33,16 +33,17 @@ class Mod(commands.Cog):
                   members: commands.Greedy[discord.Member],
                   deletedays: typing.Optional[int] = 1,
                   *,
-                  reason: typing.Optional[str] = ''):
+                  reason = 'Unavailable'):
         #iterate through the members
         for member in members:
             await member.ban(reason=reason, delete_message_days=deletedays)
             #make an embed
-            embed = embed = discord.Embed(title='Banned Member',
+            embed = discord.Embed(title='Banned Member',
                                           description=f'banned {member}')
             embed.set_author(name='BetterBot')
             embed.add_field(name='Reason', value=reason, inline=True)
             await ctx.send(embed=embed)
+    
 
 
 def setup(client):

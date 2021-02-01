@@ -23,7 +23,8 @@ Dictwithstuff = {
 
 {get_quote()}''',
     "no u": 'https://tenor.com/view/reverse-nozumi-uno-jojo-card-gif-15706915',
-    'good choice': 'Yes, very good indeed'
+    'good choice': 'Yes, very good indeed',
+    'im happy!':'https://tenor.com/view/baby-yoda-baby-yoda-happy-laughing-smile-happy-gif-16061896'
 }
 #initialize the regex
 pattern = re.compile(r'ree+\b')

@@ -20,10 +20,11 @@ class Mod(commands.Cog):
             await member.kick(reason=reason)
             #make an embed
             embed = discord.Embed(
-                title='Kicked Member', description=f'Kicked {member}')
+                title='Kicked Member', description='Kicked '+member)
             embed.set_author(name='BetterBot')
-            embed.add_field(name='Reason', value=reason, inline=True)
-            await ctx.send(embed=embed)
+            embed.add_field(name='Reason', value=reason, inline=False)
+        #send the embed after making the embed
+        await ctx.send(embed=embed)
 
     #Ban/MassBan Command
     @commands.command(aliases=['bean'])
@@ -34,15 +35,26 @@ class Mod(commands.Cog):
                   deletedays: typing.Optional[int] = 1,
                   *,
                   reason = 'Unavailable'):
+        #Create a var that contains members
+        banned = ''
         #iterate through the members
         for member in members:
-            await member.ban(reason=reason, delete_message_days=deletedays)
-            #make an embed
-            embed = discord.Embed(title='Banned Member',
-                                          description=f'banned {member}')
-            embed.set_author(name='BetterBot')
-            embed.add_field(name='Reason', value=reason, inline=True)
-            await ctx.send(embed=embed)
+            await member.ban(reason=reason, delete_message_days=deletedays)          
+            banned += ' '+str(member)
+           
+            #make an embed            
+        embed = discord.Embed(title='Banned Member',description='banned '+banned)
+        embed.set_author(name='BetterBot')
+        embed.add_field(name='Reason', value=reason, inline=False)
+        await ctx.send(embed=embed)
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def bans(self, ctx):
+      bans = await ctx.guild.bans()
+      pretty_list = ["• {0.id} ({0.name}#{0.discriminator})".format(entry.user) for entry in bans]
+      await ctx.send("**Ban list:** \n{}".format("\n".join(pretty_list)))
+    
+            
     
 
 

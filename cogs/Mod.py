@@ -13,7 +13,11 @@ class Mod(commands.Cog):
     #iterate through the members
     for member in members:  
       await member.kick(reason = reason)
-      await ctx.send(embed = (discord.Embed(title="Kicked Member",description=f"Kicked {member}", color=0xFF5733)))
+      #make an embed
+      embed =  embed = embed=discord.Embed(title='Kicked Member', description=f'Kicked {member}')
+      embed.set_author(name='BetterBot')
+      embed.add_field(name='Reason', value=reason, inline=True)
+      await ctx.send(embed=embed)
   #Ban/MassBan Command
   @commands.command(aliases=['bean'])
   @commands.has_permissions(ban_members=True)
@@ -21,8 +25,12 @@ class Mod(commands.Cog):
     #iterate through the members
     for member in members:
       await member.ban(reason = reason, delete_message_days=deletedays)
-      await ctx.send(embed = (discord.Embed(title="Banned Member",description=f"banned {member}", color=0xFF5733)))
-    #    
+      #make an embed
+      embed = embed=discord.Embed(title='Banned Member', description=f'banned {member}')
+      embed.set_author(name='BetterBot')
+      embed.add_field(name='Reason', value=reason, inline=True)
+      await ctx.send(embed=embed)
+    
   
 
 def setup(client):

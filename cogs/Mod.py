@@ -3,6 +3,7 @@ from discord.ext import commands
 import typing
 
 
+
 class Mod(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -15,14 +16,17 @@ class Mod(commands.Cog):
                    members: commands.Greedy[discord.Member],
                    *,
                    reason='Unavailable'):
+        #Make a var that contains members
+        kicked=''
         #iterate through the members
         for member in members:
             await member.kick(reason=reason)
-            #make an embed
-            embed = discord.Embed(
-                title='Kicked Member', description='Kicked '+member)
-            embed.set_author(name='BetterBot')
-            embed.add_field(name='Reason', value=reason, inline=False)
+            kicked += ' '+str(member)
+         #make an embed
+        embed = discord.Embed(
+            title='Kicked Member', description='Kicked '+kicked)
+        embed.set_author(name='BetterBot')
+        embed.add_field(name='Reason', value=reason, inline=False)   
         #send the embed after making the embed
         await ctx.send(embed=embed)
 
@@ -53,6 +57,15 @@ class Mod(commands.Cog):
       bans = await ctx.guild.bans()
       pretty_list = ["• {0.id} ({0.name}#{0.discriminator})".format(entry.user) for entry in bans]
       await ctx.send("**Ban list:** \n{}".format("\n".join(pretty_list)))
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def unban(self,ctx, id: int):
+      user = await self.client.fetch_user(id)
+      await ctx.guild.unban(user)
+      embed = discord.Embed(title='UnBanned Member',description='Unbanned '+user)
+      embed.set_author(name='BetterBot')
+      await ctx.send(embed=embed)
+
     
             
     

@@ -3,6 +3,7 @@ from discord.ext import commands
 import re
 import requests
 import json
+import time
 
 
 #code from freecodecamp
@@ -48,13 +49,20 @@ class Fun(commands.Cog):
             messagecont = message.content.lower()
             if x == messagecont:
                 await message.channel.send(y)
+                time.sleep(5)
 
             elif pattern.match(messagecont):
                 await message.channel.send(
                     'https://tenor.com/view/ree-pepe-triggered-angry-ahhhh-gif-13627544'
                 )
+                time.sleep(5)
                 break
-
+    @commands.command()
+    async def noprefixcommandlist(self, ctx):
+      commandslist=[f"```{x} returns {y}```"for x,y in Dictwithstuff.items()]
+   
+      commandslist.append("```ree(works with as many e's as you want) returns <https://tenor.com/view/ree-pepe-triggered-angry-ahhhh-gif-13627544>```")
+      await ctx.send('{}'.format('\n'.join(commandslist)))
 
 def setup(client):
     client.add_cog(Fun(client))

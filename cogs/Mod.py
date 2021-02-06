@@ -18,7 +18,7 @@ class Mod(commands.Cog):
       '''Kicks the member(s) \nParameter = Member(s) to kick, and a reason(optional)'''
       #Make a var that contains members
       kicked = ''
-      if not Member:
+      if not members:
         return await ctx.send(embed=(discord.Embed(title='Please specify a member', description='Please specify a member')))
       #iterate through the members
       for member in members:
@@ -43,7 +43,7 @@ class Mod(commands.Cog):
       '''Bans the member(s) \nParameters = Member(s) to unban, days of message to be deleted(optional), reason(optional) '''
       #Create a var that contains members
       banned = ''
-      if not Member:
+      if not members:
         return await ctx.send(embed=(discord.Embed(title='Please specify a member', description='Please specify a member')))
       #iterate through the members        
       for member in members:
@@ -93,7 +93,7 @@ class Mod(commands.Cog):
       mutedRole = discord.utils.get(guild.roles, name="Muted")
       muted = ''
       hell = discord.utils.get(ctx.guild.text_channels, name="hell")
-      if not Member:
+      if not members:
         return await ctx.send(embed=(discord.Embed(title='Please specify a member', description='Please specify a member')))
 
       if not mutedRole:

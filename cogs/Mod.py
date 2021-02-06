@@ -18,6 +18,8 @@ class Mod(commands.Cog):
       '''Kicks the member(s) \nParameter = Member(s) to kick, and a reason(optional)'''
       #Make a var that contains members
       kicked = ''
+      if not Member:
+        return await ctx.send(embed=(discord.Embed(title='Please specify a member', description='Please specify a member')))
       #iterate through the members
       for member in members:
           await member.kick(reason=reason)
@@ -41,6 +43,8 @@ class Mod(commands.Cog):
       '''Bans the member(s) \nParameters = Member(s) to unban, days of message to be deleted(optional), reason(optional) '''
       #Create a var that contains members
       banned = ''
+      if not Member:
+        return await ctx.send(embed=(discord.Embed(title='Please specify a member', description='Please specify a member')))
       #iterate through the members        
       for member in members:
           await member.ban(reason=reason, delete_message_days=deletedays)
@@ -68,6 +72,9 @@ class Mod(commands.Cog):
     async def unban(self, ctx, id: int = None):
         '''Unbans the member 
         Parameters = id of the member'''
+        if not id:
+          return await ctx.send(embed=(discord.Embed(title='Please specify a member', description='Please specify a member')))
+
         user = await self.client.fetch_user(id)
         await ctx.guild.unban(user)
         embed = discord.Embed(title='UnBanned Member',
@@ -77,14 +84,17 @@ class Mod(commands.Cog):
     @commands.command()
     @commands.has_permissions(kick_members=True)
     async def Mute(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason='Not specified'):
-      #Some code is made here thanks to https://gist.github.com/OneEyedKnight/9e1b2c939185df87bb6dfff0330df9f0
+    
       '''Mutes the member(s)
         Parameters = Member(s) and a reason(optional) '''
     #Set guild to ctx.guild so we don't have to write it every single time
+    #Some code is made here thanks to https://gist.github.com/OneEyedKnight/9e1b2c939185df87bb6dfff0330df9f0
       guild = ctx.guild
       mutedRole = discord.utils.get(guild.roles, name="Muted")
       muted = ''
       hell = discord.utils.get(ctx.guild.text_channels, name="hell")
+      if not Member:
+        return await ctx.send(embed=(discord.Embed(title='Please specify a member', description='Please specify a member')))
 
       if not mutedRole:
           mutedRole = await guild.create_role(name="Muted")

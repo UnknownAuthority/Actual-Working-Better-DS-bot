@@ -106,7 +106,7 @@ class Mod(commands.Cog):
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
         muted = ''
-        hell = discord.utils.get(ctx.guild.text_channels, name="hell")
+        hell = discord.utils.get(ctx.guild.text_channels, name="Silence")
         if not members:
             return await ctx.send(
                 embed=(discord.Embed(title='Please specify a member',
@@ -131,10 +131,8 @@ class Mod(commands.Cog):
                 discord.PermissionOverwrite(read_message_history=True)
             }  # permissions for the channel
             try:  # creates the channel and sends a message
-                channel = await guild.create_text_channel('hell',overwrites=overwrites)
-                await channel.send(
-                    f"{members} Welcome to hell.. You will spend your time here until you get unmuted. Enjoy the silence."
-                )
+                channel = await guild.create_text_channel('Silence',overwrites=overwrites)
+
             except discord.Forbidden:
                 return await ctx.send("I have no permissions to make #hell")
         #loop through the members
@@ -144,15 +142,14 @@ class Mod(commands.Cog):
             await member.send(
                 f" you have been muted from: {guild.name} reason: {reason}"
             )  #send the member a message saying that they have been muted
-
+            await member.send("Also, welcome to hell You will spend your time here until you get unmuted.Hope you don't enjoy the experience")
         embed = discord.Embed(title="muted",
                               description="Muted " + muted,
                               colour=discord.Colour.red())
         embed.add_field(name="reason:", value=reason, inline=False)
         await ctx.send(embed=embed)
 
-        await member.send(
-            f" you have been muted from: {guild.name} reason: {reason}")
+
 
 
 def setup(client):

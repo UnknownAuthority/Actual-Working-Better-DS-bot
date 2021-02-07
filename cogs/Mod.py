@@ -127,12 +127,11 @@ class Mod(commands.Cog):
                 discord.PermissionOverwrite(read_message_history=False),
                 ctx.guild.me:
                 discord.PermissionOverwrite(send_messages=True),
-                muted:
+                mutedRole:
                 discord.PermissionOverwrite(read_message_history=True)
             }  # permissions for the channel
             try:  # creates the channel and sends a message
-                channel = await ctx.create_channel('hell',
-                                                   overwrites=overwrites)
+                channel = await guild.create_text_channel('hell',overwrites=overwrites)
                 await channel.send(
                     f"{members} Welcome to hell.. You will spend your time here until you get unmuted. Enjoy the silence."
                 )

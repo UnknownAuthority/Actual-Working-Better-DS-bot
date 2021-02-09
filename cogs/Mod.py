@@ -54,7 +54,7 @@ class Mod(commands.Cog):
         #iterate through the members
         for member in members:
             await member.ban(reason=reason, delete_message_days=deletedays)
-            banned += ' ' + f'{member} id: {member.id}'
+            banned += f' {member} id: {member.id}'
 
         #make an embed
         embed = discord.Embed(title='Banned Member',
@@ -103,10 +103,13 @@ class Mod(commands.Cog):
         Parameters = Member(s) and a reason(optional) '''
         #Set guild to ctx.guild so we don't have to write it every single time
         #Some code is made here thanks to https://gist.github.com/OneEyedKnight/9e1b2c939185df87bb6dfff0330df9f0
+        
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
-        muted = ''
-        hell = discord.utils.get(ctx.guild.text_channels, name="Silence")
+        mutedfolks = ''
+        NameSilent = 'silence'
+        Silence = discord.utils.get(ctx.guild.text_channels, name=NameSilent)
+        
         if not members:
             return await ctx.send(
                 embed=(discord.Embed(title='Please specify a member',
@@ -121,30 +124,33 @@ class Mod(commands.Cog):
                                               send_messages=False,
                                               read_message_history=True,
                                               read_messages=False)
-        if not hell:  # checks if there is a channel named hell
+        if Silence == None:  # checks if there is a channel named Silence
             overwrites = {
                 ctx.guild.default_role:
                 discord.PermissionOverwrite(read_message_history=False),
                 ctx.guild.me:
                 discord.PermissionOverwrite(send_messages=True),
                 mutedRole:
-                discord.PermissionOverwrite(read_message_history=True)
-            }  # permissions for the channel
+                discord.PermissionOverwrite(read_message_history=False, send_messages=False),
+                
+            }
+             
+            # permissions for the channel
             try:  # creates the channel and sends a message
-                channel = await guild.create_text_channel('Silence',overwrites=overwrites)
+                channel = await guild.create_text_channel(NameSilent,overwrites=overwrites)
 
             except discord.Forbidden:
-                return await ctx.send("I have no permissions to make #hell")
+                return await ctx.send("I don't have permissions to make #hell")
         #loop through the members
         for member in members:
             await member.add_roles(mutedRole, reason=reason)
-            muted = ' ' + f'{member} id: {member.id}'
+            mutedfolks += ' ' + f'{member} id: {member.id}'
             await member.send(
                 f" you have been muted from: {guild.name} reason: {reason}"
             )  #send the member a message saying that they have been muted
             await member.send("Also, welcome to hell You will spend your time here until you get unmuted.Hope you don't enjoy the experience")
         embed = discord.Embed(title="muted",
-                              description="Muted " + muted,
+                              description="Muted " + mutedfolks,
                               colour=discord.Colour.red())
         embed.add_field(name="reason:", value=reason, inline=False)
         await ctx.send(embed=embed)

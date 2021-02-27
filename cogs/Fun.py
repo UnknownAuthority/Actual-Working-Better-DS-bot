@@ -1,4 +1,5 @@
 import discord
+import asyncio
 from discord.ext import commands
 import re
 import requests
@@ -12,6 +13,7 @@ def get_quote():
     json_data = json.loads(response.text)
     quote = json_data[0]['q'] + " -" + json_data[0]['a']
     return (quote)
+
 
 
 #initialize the dict
@@ -50,17 +52,19 @@ class Fun(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        for x, y in Dictwithstuff.items():
-            messagecont = message.content.lower()
-            if x == messagecont:
-                await message.channel.send(y)
+      for x, y in Dictwithstuff.items():
+        messagecont = message.content.lower()
+        if x == messagecont:
+          await message.channel.send(y)
+          
 
-            elif pattern.match(messagecont):
-                await message.channel.send(
+        elif pattern.match(messagecont):
+          await message.channel.send(
                     'https://tenor.com/view/ree-pepe-triggered-angry-ahhhh-gif-13627544'
                 )
+          
+          break
 
-                break
 
     @commands.command()
     async def noprefixcommandlist(self, ctx):

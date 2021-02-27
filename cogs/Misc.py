@@ -7,7 +7,7 @@ class Misc(commands.Cog):
         self.client = client
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-      ctx.send(error)
+      await ctx.send(error)
 
 
 
@@ -16,6 +16,10 @@ class Misc(commands.Cog):
  
       
       print(f'Logged in as {self.client.user}')
+#class DataBase():
+   
+ # def _init_():
+    
     
     
 

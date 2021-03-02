@@ -7,6 +7,7 @@ class Misc(commands.Cog):
         self.client = client
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
+      
       await ctx.send(error)
 
 

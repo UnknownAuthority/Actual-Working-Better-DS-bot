@@ -161,11 +161,11 @@ class Mod(commands.Cog):
         await ctx.send(embed=embed)
     @commands.command()
     @commands.has_permissions(kick_members=True)
-		async def UnMute(self, ctx, members: commands.Greedy[discord.Member] = None):
-			mutedRole = ctx.utils.get(guild.roles, name='Muted')
+    async def UnMute(self, ctx, members: commands.Greedy[discord.Member] = None):
+      mutedRole = discord.utils.get(ctx.guild.roles, name='Muted')
       msg = ''
       for member in members:
-        member.remove_roles(member, mutedRole))
+        await member.remove_roles(member, mutedRole)
         msg += f'{member.name} has been unmuted'
       ctx.send(member)
 

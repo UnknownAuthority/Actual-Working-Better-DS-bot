@@ -5,8 +5,10 @@ from discord.ext import commands
 class Misc(commands.Cog):
     def __init__(self, client):
         self.client = client
-    @commands.Cog.listener()
+    @commands.Cog.listener()    
     async def on_command_error(self, ctx, error):
+      if isinstance(error, commands.CommandNotFound):
+        return
       await ctx.send(error)
 
 

@@ -103,13 +103,13 @@ class Mod(commands.Cog):
         Parameters = Member(s) and a reason(optional) '''
         #Set guild to ctx.guild so we don't have to write it every single time
         #Some code is made here thanks to https://gist.github.com/OneEyedKnight/9e1b2c939185df87bb6dfff0330df9f0
-        
+
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
         mutedfolks = ''
         NameSilent = 'silence'
         Silence = discord.utils.get(ctx.guild.text_channels, name=NameSilent)
-        
+
         if not members:
             return await ctx.send(
                 embed=(discord.Embed(title='Please specify a member',
@@ -127,47 +127,56 @@ class Mod(commands.Cog):
         if Silence == None:  # checks if there is a channel named Silence
             overwrites = {
                 ctx.guild.default_role:
-                discord.PermissionOverwrite(read_message_history=False, view_channel=False),
-
+                discord.PermissionOverwrite(read_message_history=False,
+                                            view_channel=False),
                 ctx.guild.me:
                 discord.PermissionOverwrite(send_messages=True),
                 mutedRole:
-                discord.PermissionOverwrite(read_message_history=False, send_messages=False, view_channel=True),
-                
+                discord.PermissionOverwrite(read_message_history=False,
+                                            send_messages=False,
+                                            view_channel=True),
             }
-             
+
             # permissions for the channel
             try:  # creates the channel and sends a message
-                channel = await guild.create_text_channel(NameSilent,overwrites=overwrites)
+                channel = await guild.create_text_channel(
+                    NameSilent, overwrites=overwrites)
 
             except discord.Forbidden:
-                return await ctx.send("I don't have permissions to make #Silence")
+                return await ctx.send(
+                    "I don't have permissions to make #Silence")
         #loop through the members
-        try:  
-          for member in members:
-              await member.add_roles(mutedRole, reason=reason)
-              mutedfolks += ' ' + f'{member} id: {member.id}'
-              await member.send(
-                  f" you have been muted from: {guild.name} reason: {reason}"
-              )  #send the member a message saying that they have been muted
-              await member.send("Also, welcome to hell You will spend your time here until you get unmuted.Hope you don't enjoy the experience")
+        try:
+            for member in members:
+                await member.add_roles(mutedRole, reason=reason)
+                mutedfolks += ' ' + f'{member} id: {member.id}'
+                await member.send(
+                    f" you have been muted from: {guild.name} reason: {reason}"
+                )  #send the member a message saying that they have been muted
+                await member.send(
+                    "Also, welcome to hell You will spend your time here until you get unmuted.Hope you don't enjoy the experience"
+                )
         except Exception as e:
-          await ctx.send(f"Exception {e} occured, cant send messages to member")
+            await ctx.send(
+                f"Exception {e} occured, cant send messages to member")
 
         embed = discord.Embed(title="muted",
                               description="Muted " + mutedfolks,
                               colour=discord.Colour.red())
         embed.add_field(name="reason:", value=reason, inline=False)
         await ctx.send(embed=embed)
+
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    async def UnMute(self, ctx, members: commands.Greedy[discord.Member] = None):
-      mutedRole = discord.utils.get(ctx.guild.roles, name='Muted')
-      msg = ''
-      for member in members:
-        await member.remove_roles(member, mutedRole)
-        msg += f'{member.name} has been unmuted'
-      ctx.send(member)
+    async def UnMute(self,
+                     ctx,
+                     members: commands.Greedy[discord.Member] = None):
+        mutedRole = discord.utils.get(ctx.guild.roles, name='Muted')
+        msg = ''
+        for member in members:
+            await member.remove_roles(member, mutedRole)
+            msg += f'{member.name} has been unmuted'
+        ctx.send(member)
 
 
 def setup(client):

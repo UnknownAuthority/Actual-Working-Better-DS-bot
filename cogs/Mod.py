@@ -174,9 +174,9 @@ class Mod(commands.Cog):
         mutedRole = discord.utils.get(ctx.guild.roles, name='Muted')
         msg = ''
         for member in members:
-            await member.remove_roles(member, mutedRole)
+            await member.remove_roles(mutedRole)
             msg += f'{member.name} has been unmuted'
-        ctx.send(member)
+        await ctx.send(msg)
 
 
 def setup(client):

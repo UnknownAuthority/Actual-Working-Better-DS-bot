@@ -171,10 +171,15 @@ class Mod(commands.Cog):
     async def UnMute(self,
                      ctx,
                      members: commands.Greedy[discord.Member] = None):
+        'UnMutes the member(s)'
         mutedRole = discord.utils.get(ctx.guild.roles, name='Muted')
         msg = ''
+        unmutedfolks = ''
+        
         for member in members:
+            
             await member.remove_roles(mutedRole)
+            unmutedfolks += ' ' + f'{member} id: {member.id}'
             msg += f'{member.name} has been unmuted'
         await ctx.send(msg)
 

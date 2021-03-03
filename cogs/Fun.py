@@ -67,8 +67,9 @@ class Fun(commands.Cog):
           break
 
 
-    @commands.command()
+    @commands.command(aliases=['noprefix'])
     async def noprefixcommandlist(self, ctx):
+        'Lists Commands Without any prefix, alias = noprefix'
         commandslist = [
             f"```{x} returns {y}```" for x, y in Dictwithstuff.items()
         ]

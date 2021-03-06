@@ -107,8 +107,8 @@ class Mod(commands.Cog):
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
         mutedfolks = ''
-        NameSilent = 'silence'
-        Silence = discord.utils.get(guild.text_channels, name=NameSilent)
+        Nameplead = 'Plead'
+        Plead = discord.utils.get(guild.text_channels, name=Nameplead)
 
         if not members:
             return await ctx.send(
@@ -122,13 +122,7 @@ class Mod(commands.Cog):
                                               read_message_history=True,
                                               read_messages=False)
 
-            for channel in guild.channels:
-                await channel.set_permissions(mutedRole,
-                                              speak=False,
-                                              send_messages=False,
-                                              read_message_history=True,
-                                              read_messages=False)
-        if Silence == None:  # checks if there is a channel named Silence
+        if Plead == None:  # checks if there is a channel named Silence
             overwrites = {
                 ctx.guild.default_role:
                 discord.PermissionOverwrite(read_message_history=False,
@@ -136,15 +130,15 @@ class Mod(commands.Cog):
                 ctx.guild.me:
                 discord.PermissionOverwrite(send_messages=True),
                 mutedRole:
-                discord.PermissionOverwrite(read_message_history=False,
-                                            send_messages=False,
+                discord.PermissionOverwrite(read_message_history=True,
+                                            send_messages=True,
                                             view_channel=True),
             }
 
             # permissions for the channel
             try:  # creates the channel and sends a message
-                channel = await guild.create_text_channel(
-                    NameSilent, overwrites=overwrites)
+                await guild.create_text_channel(
+                    Nameplead, overwrites=overwrites)
 
             except discord.Forbidden:
                 return await ctx.send(
@@ -155,7 +149,7 @@ class Mod(commands.Cog):
                 await member.add_roles(mutedRole, reason=reason)
                 mutedfolks += ' ' + f'{member} id: {member.id}'
                 await member.send(
-                    f"you have been muted from: {guild.name} reason: {reason}\nAlso, welcome to hell You will spend your time here until you get unmuted.Hope you don't enjoy the experience"
+                    f"you have been muted from: {guild.name} reason: {reason}\nAlso, welcome to silence You will spend your time here until you get unmuted.Hope you don't enjoy the experience"
                 )
                 #)
         except Exception as e:
@@ -180,7 +174,7 @@ class Mod(commands.Cog):
             msg += f' {member.name}'
         embed = discord.Embed(title='Unmuted', description='Unmuted' + msg, colour=discord.Colour.red())
 
-        await ctx.send(embed)
+        await ctx.send(embed=embed)
 
 
 def setup(client):

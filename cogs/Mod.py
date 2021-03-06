@@ -108,7 +108,7 @@ class Mod(commands.Cog):
         mutedRole = discord.utils.get(guild.roles, name="Muted")
         mutedfolks = ''
         NameSilent = 'silence'
-        Silence = discord.utils.get(ctx.guild.text_channels, name=NameSilent)
+        Silence = discord.utils.get(guild.text_channels, name=NameSilent)
 
         if not members:
             return await ctx.send(
@@ -116,7 +116,11 @@ class Mod(commands.Cog):
                                      description='Please specify a member')))
 
         if not mutedRole:
-            mutedRole = await guild.create_role(name="Muted")
+            mutedRole = await guild.create_role(name="Muted", 
+                                              speak=False,
+                                              send_messages=False,
+                                              read_message_history=True,
+                                              read_messages=False)
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole,
@@ -151,11 +155,9 @@ class Mod(commands.Cog):
                 await member.add_roles(mutedRole, reason=reason)
                 mutedfolks += ' ' + f'{member} id: {member.id}'
                 await member.send(
-                    f" you have been muted from: {guild.name} reason: {reason}"
-                )  #send the member a message saying that they have been muted
-                await member.send(
-                    "Also, welcome to hell You will spend your time here until you get unmuted.Hope you don't enjoy the experience"
+                    f"you have been muted from: {guild.name} reason: {reason}\nAlso, welcome to hell You will spend your time here until you get unmuted.Hope you don't enjoy the experience"
                 )
+                #)
         except Exception as e:
             await ctx.send(
                 f"Exception {e} occured, cant send messages to member")
@@ -175,8 +177,10 @@ class Mod(commands.Cog):
         msg = ''
         for member in members:
             await member.remove_roles(mutedRole)
-            msg += f'{member.name} has been unmuted'
-        await ctx.send(msg)
+            msg += f' {member.name}'
+        embed = discord.Embed(title='Unmuted', description='Unmuted' + msg, colour=discord.Colour.red())
+
+        await ctx.send(embed)
 
 
 def setup(client):

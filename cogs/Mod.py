@@ -142,7 +142,7 @@ class Mod(commands.Cog):
 
             except discord.Forbidden:
                 return await ctx.send(
-                    "I don't have permissions to make #Silence")
+                    "I don't have permissions to make #Plead")
         #loop through the members
         try:
             for member in members:
@@ -156,7 +156,7 @@ class Mod(commands.Cog):
             await ctx.send(
                 f"Exception {e} occured, cant send messages to member")
 
-        embed = discord.Embed(title="muted",
+        embed = discord.Embed(title="Muted",
                               description="Muted " + mutedfolks,
                               colour=discord.Colour.red())
         embed.add_field(name="reason:", value=reason, inline=False)

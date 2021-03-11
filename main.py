@@ -3,7 +3,7 @@ from discord.ext import commands
 import keep_alive
 import os
 
-client = commands.Bot(command_prefix='$', case_insensitive=True)
+client = commands.Bot(command_prefix='?', case_insensitive=True)
 
 for i in os.listdir('./cogs'):
     if i.endswith('.py'):

@@ -116,12 +116,11 @@ class Mod(commands.Cog):
                                      description='Please specify a member')))
 
         if not mutedRole:
-            mutedRole = await guild.create_role(name="Muted", 
-                                              speak=False,
-                                              send_messages=False,
-                                              read_message_history=True,
+            mutedRole = await guild.create_role(name="Muted")
+            for channel in ctx.guild.channels: # removes permission to view and send in the channels 
+                await channel.set_permissions(mutedRole, send_messages=False,
+                                              read_message_history=False,
                                               read_messages=False)
-
         if Plead == None:  # checks if there is a channel named Silence
             overwrites = {
                 ctx.guild.default_role:

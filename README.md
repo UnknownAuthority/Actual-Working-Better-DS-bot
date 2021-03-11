@@ -18,6 +18,7 @@ Mod:
   bans                Returns the list of banned members
   kick                Kicks the member(s) 
   unban               Unbans the member 
+  unmute              Unmutes the member
 ​No Category:
   help                Shows this message
 No Prefix Commands:

@@ -30,9 +30,10 @@ Dictwithstuff = {
     "no u":
     'https://tenor.com/view/reverse-nozumi-uno-jojo-card-gif-15706915',
     'good choice':
-    'Yes, very good indeed',
+    'yes, very good indeed',
     'im happy!':
-    'https://tenor.com/view/baby-yoda-baby-yoda-happy-laughing-smile-happy-gif-16061896'
+    'https://tenor.com/view/baby-yoda-baby-yoda-happy-laughing-smile-happy-gif-16061896',
+    'hewwo':'Hello!'
 }
 #initialize the regex
 pattern = re.compile(r'ree+\b')
@@ -68,8 +69,9 @@ class Fun(commands.Cog):
           break
 
 
-    @commands.command()
+    @commands.command(aliases=['noprefix'])
     async def noprefixcommandlist(self, ctx):
+        'Lists Commands Without any prefix, alias = noprefix'
         commandslist = [
             f"```{x} returns {y}```" for x, y in Dictwithstuff.items()
         ]

@@ -57,6 +57,7 @@ class Fun(commands.Cog):
         messagecont = message.content.lower()
         if x == messagecont:
           await message.channel.send(y)
+          
 				  	
           
 

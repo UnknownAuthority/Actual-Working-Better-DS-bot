@@ -107,7 +107,7 @@ class Mod(commands.Cog):
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
         mutedfolks = ''
-        Nameplead = 'Plead'
+        Nameplead = 'plead'
         Plead = discord.utils.get(guild.text_channels, name=Nameplead)
 
         if not members:
@@ -148,7 +148,7 @@ class Mod(commands.Cog):
                 await member.add_roles(mutedRole, reason=reason)
                 mutedfolks += ' ' + f'{member} id: {member.id}'
                 await member.send(
-                    f"you have been muted from: {guild.name} reason: {reason}\nAlso, welcome to silence You will spend your time here until you get unmuted.Hope you don't enjoy the experience"
+                    f"you have been muted from: {guild.name} reason: {reason}\nAlso, welcome to #Plead You will spend your time here until you get unmuted.Hope you don't enjoy the experience"
                 )
                 #)
         except Exception as e:
@@ -169,21 +169,19 @@ class Mod(commands.Cog):
         'UnMutes the member(s)'
         mutedRole = discord.utils.get(ctx.guild.roles, name='Muted')
         msg = ''
-        unmutedfolks = ''
         
+       
         for member in members:
             
             await member.remove_roles(mutedRole)
-<<<<<<< HEAD
+
             msg += f' {member.name}'
         embed = discord.Embed(title='Unmuted', description='Unmuted' + msg, colour=discord.Colour.red())
 
         await ctx.send(embed=embed)
-=======
-            unmutedfolks += ' ' + f'{member} id: {member.id}'
-            msg += f'{member.name} has been unmuted'
-        await ctx.send(msg)
->>>>>>> master
+
+
+
 
 
 def setup(client):

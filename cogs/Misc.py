@@ -10,6 +10,14 @@ class Misc(commands.Cog):
       if isinstance(error, commands.CommandNotFound):
         return
       await ctx.send(error)
+    @commands.Cog.listener()
+    async def on_member_join(self,member):
+      print("here")
+      channel = discord.utils.get(member.guild.text_channels, name="welcome")
+      if not channel:
+          member.guild.create_text_channel("welcome")
+      await channel.send(f"{member} has arrived!")
+
 
 
 

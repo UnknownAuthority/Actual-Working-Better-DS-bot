@@ -117,8 +117,9 @@ class Mod(commands.Cog):
 
         if not mutedRole:
             mutedRole = await guild.create_role(name="Muted")
-            for channel in ctx.guild.channels: # removes permission to view and send in the channels 
-                await channel.set_permissions(mutedRole, send_messages=False,
+            for channel in ctx.guild.channels:  # removes permission to view and send in the channels
+                await channel.set_permissions(mutedRole,
+                                              send_messages=False,
                                               read_message_history=False,
                                               read_messages=False)
         if Plead == None:  # checks if there is a channel named Silence
@@ -136,12 +137,12 @@ class Mod(commands.Cog):
 
             # permissions for the channel
             try:  # creates the channel and sends a message
-                await guild.create_text_channel(
-                    Nameplead, overwrites=overwrites)
+                await guild.create_text_channel(Nameplead,
+                                                overwrites=overwrites)
 
             except discord.Forbidden:
-                return await ctx.send(
-                    "I don't have permissions to make #Plead")
+                return await ctx.send("I don't have permissions to make #Plead"
+                                      )
         #loop through the members
         try:
             for member in members:
@@ -169,18 +170,41 @@ class Mod(commands.Cog):
         'UnMutes the member(s)'
         mutedRole = discord.utils.get(ctx.guild.roles, name='Muted')
         msg = ''
-        
-       
+
         for member in members:
-            
+
             await member.remove_roles(mutedRole)
 
             msg += f' {member.name}'
-        embed = discord.Embed(title='Unmuted', description='Unmuted' + msg, colour=discord.Colour.red())
+        embed = discord.Embed(title='Unmuted',
+                              description='Unmuted' + msg,
+                              colour=discord.Colour.red())
 
         await ctx.send(embed=embed)
 
-
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def purgeadm(self, ctx, amount=30):
+        "A purge comamnd with powah, can purge 100 or more messages"
+        amount += 1
+        channel = ctx.message.channel        
+        await channel.purge(limit=amount,check=None,before=None,after=None, around=None,oldest_first=False,bulk=True)
+        await ctx.send(
+            f'{amount} messages have been purged by {ctx.message.author.mention}'
+        )
+    @commands.command()
+    @commands.has_permissions(manage_messages=True)
+    async def purge(self, ctx, amount=30):
+      '''Purges 100 or less messages, default is 30 '''
+      amount = amount + 1
+      channel = ctx.message.channel
+      if amount > 99:
+        await ctx.send("Normie purge can't purge 100 or more messages")
+        return
+      await channel.purge(limit=amount,check=None,before=None,after=None, around=None,oldest_first=False,bulk=True)
+      await ctx.send(
+            f'{amount} messages have been purged by {ctx.message.author.mention}'
+        )
 
 
 

@@ -120,7 +120,7 @@ class Mod(commands.Cog):
             for channel in ctx.guild.channels:  # removes permission to view and send in the channels
                 await channel.set_permissions(mutedRole,
                                               send_messages=False,
-                                              read_message_history=False,
+                                              read_message_history=False, 
                                               read_messages=False)
         if Plead == None:  # checks if there is a channel named Silence
             overwrites = {

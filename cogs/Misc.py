@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-
+import asyncio
 
 class Misc(commands.Cog):
     def __init__(self, client):
@@ -17,7 +17,11 @@ class Misc(commands.Cog):
       if not channel:
           member.guild.create_text_channel("welcome")
       await channel.send(f"{member} has arrived!")
-
+    @commands.command()
+    async def spam(self, ctx):
+      for i in range(100):
+        await ctx.send('yeet')
+        await asyncio.sleep(10)
 
 
 

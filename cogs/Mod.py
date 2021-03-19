@@ -194,7 +194,7 @@ class Mod(commands.Cog):
         await ctx.send("Normie purge can't purge 100 or more messages")
         return
       await channel.purge(limit=amount,check=None,before=None,after=None, around=None,oldest_first=False,bulk=True)
-      await ctx.send(ctx.message.author.guild_permissions.administrator)
+      
       await ctx.send(
             f'{amount - 1} messages have been purged by {ctx.message.author.mention}'
         )

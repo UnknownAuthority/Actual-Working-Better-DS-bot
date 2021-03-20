@@ -2,8 +2,9 @@ import discord
 from discord.ext import commands
 import keep_alive
 import os
-
-client = commands.Bot(command_prefix='?', case_insensitive=True)
+intents = discord.Intents.default()
+intents.members = True
+client = commands.Bot(command_prefix='!', case_insensitive=True, intents=intents)
 
 for i in os.listdir('./cogs'):
     if i.endswith('.py'):

@@ -12,16 +12,41 @@ class Misc(commands.Cog):
       await ctx.send(error)
     @commands.Cog.listener()
     async def on_member_join(self,member):
-      print("here")
+      
       channel = discord.utils.get(member.guild.text_channels, name="welcome")
       if not channel:
-          member.guild.create_text_channel("welcome")
-      await channel.send(f"{member} has arrived!")
-    @commands.command()
-    async def spam(self, ctx):
-      for i in range(100):
-        await ctx.send('yeet')
-        await asyncio.sleep(10)
+
+        overwrites = {
+                member.guild.default_role:
+                discord.PermissionOverwrite(read_message_history=True,
+                                            view_channel=True,
+                                            send_messages=False),
+                member.guild.me:
+                discord.PermissionOverwrite(send_messages=True),
+                
+            }
+        channel= await member.guild.create_text_channel("welcome", overwrites=overwrites)
+      embed=discord.Embed(title=f"{member.name} has joined the server!", description=f"{member.mention} thank you for joining the server!, please read the rules and follow them here!", color=0x001eff)
+      embed.set_thumbnail(url=member.avatar_url)
+      await channel.send(embed=embed)
+    @commands.Cog.listener()
+    async def on_member_remove(self,member):
+      
+      channel = discord.utils.get(member.guild.text_channels, name="goodbye")
+      if not channel:
+        overwrites = {
+                member.guild.default_role:
+                discord.PermissionOverwrite(read_message_history=True,
+                                            view_channel=True,
+                                            send_messages=False),
+                member.guild.me:
+                discord.PermissionOverwrite(send_messages=True),
+                
+            }
+        channel= await member.guild.create_text_channel("goodbye", overwrites=overwrites)
+      embed=discord.Embed(title=f'{member.name} has left the server', description=f"{member.name} got fed up with the server", color=0x001eff)
+      embed.set_thumbnail(url=member.avatar_url)
+      await channel.send(embed=embed)
 
 
 

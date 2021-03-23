@@ -7,6 +7,12 @@ import pymongo
 import time
 
 
+async def convert_time_to_seconds(time):
+    time_convert = {"s": 1, "m": 60, "h": 3600, "d": 86400}
+    try:
+        return int(time[:-1]) * time_convert[time[-1]]
+    except:
+        return time                                        
 
 DB = os.getenv('DB')
 dbclient = pymongo.MongoClient(DB)
@@ -114,13 +120,16 @@ class Mod(commands.Cog):
                    ctx,
                    members: commands.Greedy[discord.Member] = None,
                    unmutetime=3600,
+                   swither='s',
                    *,
                    reason='Not specified'):
         '''Mutes the member(s)
         Parameters = Member(s) and a reason(optional) '''
         #Set guild to ctx.guild so we don't have to write it every single time
         #Some code is made here thanks to https://gist.github.com/OneEyedKnight/9e1b2c939185df87bb6dfff0330df9f0
-
+        
+        unmutetime = await convert_time_to_seconds(f'{unmutetime}{swither}')
+        print(unmutetime)
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
         mutedfolks = ''
@@ -163,6 +172,7 @@ class Mod(commands.Cog):
         #loop through the members
         try:
             for member in members:
+                
                 await insertmember(ctx=ctx, client=self.client, member=member.id, unmutetime=unmutetime)
                 await member.add_roles(mutedRole, reason=reason)
                 mutedfolks += ' ' + f'{member} id: {member.id}'

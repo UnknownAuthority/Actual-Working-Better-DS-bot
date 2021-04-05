@@ -85,7 +85,7 @@ class Misc(commands.Cog):
       await channel.send(embed=embed)
     @commands.command()
     async def ping(self, ctx):
-      await ctx.send(f'The ping is {round(self.client.latency)}')
+      await ctx.send(f'The ping is {round(self.client.latency * 1000)}ms')
 
 
     @commands.Cog.listener()
@@ -93,9 +93,7 @@ class Misc(commands.Cog):
       print(f'Logged in as {self.client.user}')
       await removeandunmute(self.client)
 
-#class DataBase():
-   
- # def _init_():
+
     
     
     

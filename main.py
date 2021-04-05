@@ -10,7 +10,7 @@ import os
 intents = discord.Intents.default()
 intents.members = True
 
-client = commands.Bot(command_prefix='!', case_insensitive=True, intents=intents, chunk_guilds_at_startup=True)
+client = commands.Bot(command_prefix='?', case_insensitive=True, intents=intents, chunk_guilds_at_startup=True)
 
 for i in os.listdir('./cogs'):
     if i.endswith('.py'):

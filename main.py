@@ -5,12 +5,13 @@ import os
 #import pymongo
 #import time
 
+from pretty_help import PrettyHelp
 
 
 intents = discord.Intents.default()
 intents.members = True
 
-client = commands.Bot(command_prefix='?', case_insensitive=True, intents=intents, chunk_guilds_at_startup=True)
+client = commands.Bot(command_prefix='?', case_insensitive=True, intents=intents, chunk_guilds_at_startup=True, help_command=PrettyHelp())
 
 for i in os.listdir('./cogs'):
     if i.endswith('.py'):

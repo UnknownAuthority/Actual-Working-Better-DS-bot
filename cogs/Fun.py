@@ -19,15 +19,18 @@ def get_quote():
 
 
 class Fun(commands.Cog):
+    '''Just some fun commands that you can use, we plan on adding more!'''
     def __init__(self, client):
         self.client = client
 
     @commands.command()
     async def Hewwo(self, ctx):
-        await ctx.send('hello!')
+      '''Just sends hello!'''
+      await ctx.send('hello!')
 
     @commands.command()
     async def quote(self, ctx):
+        '''Sends a random quotes, made possible by zenquotes.io'''
         await ctx.send(get_quote())
 
 

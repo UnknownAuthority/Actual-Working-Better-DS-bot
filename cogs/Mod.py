@@ -73,6 +73,7 @@ Parameter = Member(s) to kick, and a reason(optional)
         )
         embed.set_author(name="BetterBot")
         embed.add_field(name="Reason", value=reason, inline=False)
+        
         # send the embed after making the embed
         await ctx.send(embed=embed)
 

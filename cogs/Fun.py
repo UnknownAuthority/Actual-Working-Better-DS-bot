@@ -1,5 +1,5 @@
 import discord
-import asyncio
+#import asyncio
 from discord.ext import commands
 import re
 import requests
@@ -44,6 +44,13 @@ class Fun(commands.Cog):
                 'https://tenor.com/view/ree-pepe-triggered-angry-ahhhh-gif-13627544'
             )
             break  
+  @commands.command(aliases=["Noprefix"])
+  async def NoPrefixCommandList(self, ctx):
+    
+    embed= discord.Embed(title='No Prefix commands')
+    for x,y in Dictwithstuff.items():
+      embed.add_field(name=x,value=y, inline=True)
+    await ctx.send(embed=embed)
 
   def __init__(self, client):
       self.client = client

@@ -369,7 +369,7 @@ Hope you don't enjoy the experience
             amount > 99 and
             not ctx.message.author.guild_permissions.administrator
         ):
-            await ctx.send("Normie purge can't purge 100 or more messages")
+            await ctx.send("Normie purge can't purge 99 or more messages")
             return
         await channel.purge(
             limit=amount,

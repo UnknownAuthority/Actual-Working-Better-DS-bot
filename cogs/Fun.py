@@ -4,7 +4,7 @@ from discord.ext import commands
 import re
 import requests
 import json
-
+import asyncio
 
 #code from freecodecamp
 def get_quote():
@@ -65,6 +65,15 @@ class Fun(commands.Cog):
     async def quote(self, ctx):
         """Sends a random quotes, made possible by zenquotes.io"""
         await ctx.send(get_quote())
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def keal(self, ctx, members: commands.Greedy[discord.Member] = None):
+      for member in members:
+        await member.send("you've been chosen for the wrath of the owner of the bot  prepare to die")
+        await member.send("spamming in 30 seconds")
+        await asyncio.sleep(30)
+        await member.send("haha gottem")
+        
 
     @commands.command()
     @commands.is_owner()

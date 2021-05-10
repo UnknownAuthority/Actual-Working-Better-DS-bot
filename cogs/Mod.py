@@ -1,10 +1,9 @@
 import discord
 from discord.ext import commands
 import typing
+from Database import Database
 
-import os
-import pymongo
-import time
+
 
 
 async def convert_time_to_seconds(time):
@@ -14,20 +13,20 @@ async def convert_time_to_seconds(time):
     except Exception:
         return time
 
-
-DB = os.getenv("DB")
-dbclient = pymongo.MongoClient(DB)
-db = dbclient["DiscordBot"]
-collection = db["MutedPeople"]
-
-
-async def insertmember(ctx, client, member, unmutetime):
-    dictwithmember = {
-        "memberid": member,
-        "unmutetime": round(unmutetime + time.time()),
-        "guild_id": ctx.guild.id,
-    }
-    collection.insert_one(dictwithmember)
+#
+#DB = os.getenv("DB")
+#dbclient = pymongo.MongoClient(DB)
+#db = dbclient["DiscordBot"]
+#collection = db["MutedPeople"]
+#
+#
+#async def insertmember(ctx, client, member, unmutetime):
+#    dictwithmember = {
+#        "memberid": member,
+#        "unmutetime": round(unmutetime + time.time()),
+#        "guild_id": ctx.guild.id,
+#    }
+#    collection.insert_one(dictwithmember)
 
 
 class Mod(commands.Cog):
@@ -35,6 +34,7 @@ class Mod(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+        self.database = Database()
 
     # Kick/Masskick Command
     @commands.command(aliases=["yeet"])
@@ -222,9 +222,8 @@ reason(optional)
         try:
             for member in members:
 
-                await insertmember(
-                    ctx=ctx,
-                    client=self.client,
+                await self.database.insertmember(
+                    ctx=ctx,                    
                     member=member.id,
                     unmutetime=unmutetime,
                 )

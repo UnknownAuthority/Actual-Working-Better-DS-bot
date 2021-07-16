@@ -1,39 +1,7 @@
 import discord
 from discord.ext import commands
 from Database import Database
-#DB = os.getenv('DB')
-#dbclient = pymongo.MongoClient(DB)
-#db = dbclient['DiscordBot']
-#collection = db['MutedPeople']
-#
-#
-#async def removeandunmute(client):
-#    print('inside the function')
-#    while True:
-#        await asyncio.sleep(30)
-#        allobjects = collection.find({})
-#
-#        if allobjects.count() > 0:
-#            for i in allobjects:
-#                #print('got objects')
-#                guild = await client.fetch_guild(i['guild_id'])
-#                #print(f'{guild.name}')
-#                id = i['memberid']
-#                #print(id)
-#                member = await guild.fetch_member(id)
-#                #print(f'{member.name}')
-#
-#                unmutetime = i['unmutetime']
-#                #print('checking the thingy')
-#                if time.time() >= unmutetime:
-#                    #print('check passed pog')
-#                    mutedRole = discord.utils.get(guild.roles, name='Muted')
-#                    #print(f'{mutedRole.name}')
-#                    await member.remove_roles(mutedRole)
-#                    #print('Done')
-#                    collection.delete_many(i)
-#                    await member.send(f'You have been unmuted for {guild.name}'
-#                                      )
+
 
 
 class Misc(commands.Cog):

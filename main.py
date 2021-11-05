@@ -6,7 +6,6 @@ import os
 # import pymongo
 # import time
 
-from pretty_help import PrettyHelp
 
 
 intents = discord.Intents.default()
@@ -17,7 +16,7 @@ client = commands.Bot(
     case_insensitive=True,
     intents=intents,
     chunk_guilds_at_startup=True,
-    help_command=PrettyHelp(),
+
     owner_ids=[int(os.getenv('person2')),int( os.getenv('Person1'))]
 )
 

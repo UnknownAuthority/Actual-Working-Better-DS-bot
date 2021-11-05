@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from Database import Database
 
+import asyncio
 
 
 class Misc(commands.Cog):
@@ -9,6 +10,15 @@ class Misc(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.database = Database()
+
+    async def ping_bumper(self):
+        DevSpace = self.client.get_guild(729692843529994311)
+        role = DevSpace.get_role(904278643608535050)
+        while True:
+            for member in role.members:
+                await member.send("Time To Bump")
+
+            await asyncio.sleep(60 * 60 * 2)
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -35,7 +45,7 @@ class Misc(commands.Cog):
             description=
             f"{member.mention} thank you for the server!, please read the rules and follow them here!",
             color=0x001eff)
-        embed.set_thumbnail(url=member.avatar_url)
+        embed.set_thumbnail(url=member.avatar.url)
         await channel.send(embed=embed)
 
     @commands.Cog.listener()
@@ -67,7 +77,8 @@ class Misc(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Logged in as {self.client.user}')
-        await self.database.removeandunmute(client=self.client)
+        asyncio.gather(self.database.removeandunmute(client=self.client),
+                       self.ping_bumper())
 
     @commands.command(name='reload', hidden=True)
     @commands.is_owner()
@@ -81,7 +92,31 @@ class Misc(commands.Cog):
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
         else:
             await ctx.send('**`SUCCESS`**')
- 
+
+    @commands.command(name='load', hidden=True)
+    @commands.is_owner()
+    async def _load(self, ctx, *, cog: str):
+        """Command which loads a Module.
+     Remember to use dot path. e.g: cogs.owner"""
+        try:
+            self.client.load_extension(cog)
+        except Exception as e:
+            await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+        else:
+            await ctx.send('**`SUCCESS`**')
+
+    @commands.command(name='unload', hidden=True)
+    @commands.is_owner()
+    async def _unload(self, ctx, *, cog: str):
+        """Command which unloads a Module.
+     Remember to use dot path. e.g: cogs.owner"""
+        try:
+            self.client.unload_extension(cog)
+
+        except Exception as e:
+            await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+        else:
+            await ctx.send('**`SUCCESS`**')
 
 
 def setup(client):

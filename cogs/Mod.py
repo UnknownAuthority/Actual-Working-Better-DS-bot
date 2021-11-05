@@ -340,7 +340,7 @@ Hope you don't enjoy the experience\
                 await member.send(
                     f"""\
 you have been muted from: {guild.name} reason: {reason}
-Also, welcome to #Plead You will spend our ime here until you get unmuted.\
+Also, welcome to #Plead You will spend our time here until you get unmuted.\
 Hope you don't enjoy the experience
                     """
                 )

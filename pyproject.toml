@@ -10,6 +10,7 @@ flask = "^1.1.2"
 pymongo = "^3.11.3"
 python-dotenv = "^0.17.0"
 py-cord = {git = "https://github.com/Pycord-Development/pycord", rev = "feature/slash"}
+flashtext = "^2.7"
 
 
 

@@ -3,7 +3,7 @@ import re
 import requests
 import json
 import discord
-
+from flashtext import KeywordProcessor
 from discord.commands import slash_command
 #code from freecodecamp
 def get_quote():
@@ -41,8 +41,10 @@ class Fun(commands.Cog):
         if message.author == self.client.user:
           return
         for x, y in self.Dictwithstuff.items():
+            keyword_processor = KeywordProcessor()
+            keyword_processor.add_keyword(x)
             messagecont = message.content.lower()
-            if x == messagecont:
+            if x in keyword_processor.extract_keywords(messagecont):
                 await message.channel.send(y)
 
             elif pattern.match(messagecont):

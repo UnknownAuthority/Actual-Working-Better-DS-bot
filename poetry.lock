@@ -86,7 +86,7 @@ dotenv = ["python-dotenv"]
 name = "idna"
 version = "3.3"
 description = "Internationalized Domain Names in Applications (IDNA)"
-category = "main"
+category = "main" #what are you doig
 optional = false
 python-versions = ">=3.5"
 

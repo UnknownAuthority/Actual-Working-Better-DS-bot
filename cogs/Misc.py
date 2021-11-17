@@ -15,10 +15,11 @@ class Misc(commands.Cog):
         DevSpace = self.client.get_guild(729692843529994311)
         role = DevSpace.get_role(904278643608535050)
         while True:
-            for member in role.members:
-                await member.send("Time To Bump")
+          await asyncio.sleep(60 * 60 * 2)
+          for member in role.members:
+            await member.send("Time To Bump")
 
-            await asyncio.sleep(60 * 60 * 2)
+            
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -66,7 +67,7 @@ class Misc(commands.Cog):
             title=f'{member.name} has left the server',
             description=f"{member.name} got fed up with the server",
             color=0x001eff)
-        embed.set_thumbnail(url=member.avatar_url)
+        embed.set_thumbnail(url=member.avatar.url)
         await channel.send(embed=embed)
 
     @commands.command()

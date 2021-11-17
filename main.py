@@ -17,7 +17,7 @@ client = commands.Bot(
     intents=intents,
     chunk_guilds_at_startup=True,
 
-    owner_ids=[int(os.getenv('person2')),int( os.getenv('Person1'))]
+    owner_ids=[int(os.getenv('person2')),int( os.getenv('person1'))]
 )
 
 for i in os.listdir("./cogs"):

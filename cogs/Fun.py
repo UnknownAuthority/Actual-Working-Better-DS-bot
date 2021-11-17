@@ -45,17 +45,18 @@ class Fun(commands.Cog):
             keyword_processor.add_keyword(x)
             messagecont = message.content.lower()
             if x in keyword_processor.extract_keywords(messagecont):
+              
+              if x != "im sad":
                 await message.channel.send(y)
-
+                break
+              await message.channel.send(self.im_sad_gen())
             elif pattern.match(messagecont):
                 await message.channel.send(
                     'https://tenor.com/view/ree-pepe-triggered-angry-ahhhh-gif-13627544'
                 )
 
                 break
-            elif messagecont == "im sad":
-              await message.channel.send(self.im_sad_gen())
-              break
+        
 
     @commands.command(aliases=['special'])
     async def specialCommands(self, ctx):
@@ -64,7 +65,7 @@ class Fun(commands.Cog):
         for x, y in self.Dictwithstuff.items():
           embed.add_field(name=x, value=y)
         embed.add_field(name="Ree", value="You can reee with as many e's you want(as long as its more than one) it'll send https://tenor.com/view/ree-pepe-triggered-angry-ahhhh-gif-13627544")
-        embed.add_field(name="im sad", value="Don't be sad, here have a quote \n (random quote here)")
+        
         await ctx.send(embed=embed)
 
     @commands.command()

@@ -22,8 +22,6 @@ class ToAscii:
         return ascii_img
 
     def resize(self, image, new_width=100):
-        # width, height = image.size
-        # new_height = int(new_width * height / width)
 
         return image.resize((new_width, new_width))
 

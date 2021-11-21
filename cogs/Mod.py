@@ -413,31 +413,6 @@ Hope you don't enjoy the experience
             )
             await ctx.send(embed=embed)
 
-    # boring legacy purge (here if you still want it)
-    """@commands.command()
-    @commands.has_permissions(manage_messages=True)
-    async def purge(self, ctx, amount=30):
-        "Purges messages "
-        amount += 1
-        channel = ctx.channel
-
-        if (
-            amount > 99 and
-            not ctx.message.author.guild_permissions.administrator
-        ):
-            await ctx.send("Normie purge can't purge 99 or more messages")
-            return
-        await channel.purge(
-            limit=amount,
-            
-        )
-        embed = discord.Embed(
-            title="Purged messages",
-            description=f"{amount - 1} messages have been purged by\ {ctx.message.author.mention}",
-            colour=discord.Colour.red(),
-        )
-        await ctx.send(embed=embed)"""
-
 
 def setup(client):
     client.add_cog(Mod(client))

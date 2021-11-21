@@ -3,9 +3,6 @@ from discord.ext import commands
 import keep_alive
 import os
 
-# import pymongo
-# import time
-
 
 intents = discord.Intents.default()
 intents.members = True

@@ -20,7 +20,7 @@ class Database:
     }
     collection.insert_one(dictwithmember)
   
-  async def removeandunmute(self,client):
+  async def remove_and_unmute(self,client):
       print('inside the function')
       collection = self.db['MutedPeople']
       while True:

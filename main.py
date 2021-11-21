@@ -7,7 +7,6 @@ import os
 # import time
 
 
-
 intents = discord.Intents.default()
 intents.members = True
 
@@ -16,8 +15,7 @@ client = commands.Bot(
     case_insensitive=True,
     intents=intents,
     chunk_guilds_at_startup=True,
-
-    owner_ids=[int(os.getenv('person2')),int( os.getenv('person1'))]
+    owner_ids=[int(os.getenv("person2")), int(os.getenv("person1"))],
 )
 
 for i in os.listdir("./cogs"):

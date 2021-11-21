@@ -13,22 +13,6 @@ async def convert_time_to_seconds(time):
         return time
 
 
-#
-# DB = os.getenv("DB")
-# dbclient = pymongo.MongoClient(DB)
-# db = dbclient["DiscordBot"]
-# collection = db["MutedPeople"]
-#
-#
-# async def insertmember(ctx, client, member, unmutetime):
-#    dictwithmember = {
-#        "memberid": member,
-#        "unmutetime": round(unmutetime + time.time()),
-#        "guild_id": ctx.guild.id,
-#    }
-#    collection.insert_one(dictwithmember)
-
-
 class Mod(commands.Cog):
     """Moderation commands"""
 

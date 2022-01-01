@@ -24,6 +24,7 @@ class Misc(commands.Cog):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
             return
+        
         await ctx.send(error)
 
     @commands.Cog.listener()
@@ -117,6 +118,7 @@ class Misc(commands.Cog):
             await ctx.send(f"**`ERROR:`** {type(e).__name__} - {e}")
         else:
             await ctx.send("**`SUCCESS`**")
+    
 
 
 def setup(client):

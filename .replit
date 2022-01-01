@@ -1,4 +1,4 @@
-language = "python3"
+language = "python"
 run = "poetry install && python3 main.py"
 [packager]
 ignoredPackages=["discord"]

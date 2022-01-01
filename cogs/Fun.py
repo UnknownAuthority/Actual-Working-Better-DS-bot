@@ -66,12 +66,15 @@ class Fun(commands.Cog):
             keyword_processor = KeywordProcessor(case_sensitive=False)
             # set the command as the keyword to search for
             keyword_processor.add_keyword(command)
+            #Add " and ' to be recognised as a word so "no u" doesn't triggered
+            keyword_processor.add_non_word_boundary("'")
+            keyword_processor.add_non_word_boundary('"')
             # get the content of the message
             messagecont = message.content
             if command in keyword_processor.extract_keywords(messagecont):
                 # if the command is anything other than "im sad"
                 # send the usual response
-                if x != "im sad":
+                if command != "im sad":
                     await message.channel.send(response)
                     break
                 # if it is "im sad" then send the response generator

@@ -6,8 +6,8 @@ class Menus(commands.Cog):
     self.client = client
   @commands.command()
   async def role(self,ctx,roleType: str = "group"):
-    """Gives you a list of desired roles according to keywords, eg: group, colour
-      if you want to access study groups just go ?role group
+    """Gives you a list of desired roles according to keywords, eg: group, Team
+      if you want to access study groups just go ?role group, for teams "?role Team"
     default value, = group
     """
     view = RoleSelectDropdownView(ctx=ctx,roleType=roleType)

@@ -169,6 +169,6 @@ class Fun(commands.Cog):
 
         os.remove(f"{name}.txt")
 
-
+   
 def setup(client):
     client.add_cog(Fun(client))

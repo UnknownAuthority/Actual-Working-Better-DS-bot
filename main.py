@@ -2,6 +2,9 @@ import discord
 from discord.ext import commands
 import keep_alive
 import os
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 intents = discord.Intents.default()

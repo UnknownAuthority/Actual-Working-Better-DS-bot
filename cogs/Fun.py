@@ -25,14 +25,14 @@ class Fun(commands.Cog):
         with open("NoPref.json", "r") as f:
             self.Dictwithstuff = json.loads(f.read())
 
-    # known bug with the library that this cog will not reload with the client.load_extension method for some damn reason
+    
     @slash_command()
     async def hello(self, ctx):
         await ctx.respond("hello!")
 
     def im_sad_gen(self):
         return f"Don't be sad, here have a quote \n {get_quote()}"
-
+    
     @commands.command()
     async def quote(self, ctx):
         await ctx.send(get_quote())
@@ -87,7 +87,7 @@ class Fun(commands.Cog):
                 )
 
                 break
-
+  
     @commands.command(aliases=["special"])
     async def specialCommands(self, ctx):
         "Lists Commands Without any prefix, alias = noprefix"
@@ -100,7 +100,7 @@ class Fun(commands.Cog):
         )
 
         await ctx.send(embed=embed)
-
+    
     @commands.command()
     @commands.is_owner()
     async def cc(self, ctx, *, message: str):

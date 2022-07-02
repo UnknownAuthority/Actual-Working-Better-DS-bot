@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 
 class Menus(commands.Cog):
+  """Menus!, unfortunately most of this file is background code due to how large 
+  pycord dropdowns tend to be"""
   def __init__(self, client):
     self.client = client
   @commands.command()
@@ -10,7 +12,7 @@ class Menus(commands.Cog):
       if you want to access study groups just go ?role group, for teams "?role Team"
     default value, = group
     """
-    view = RoleSelectDropdownView(ctx=ctx,roleType=roleType)
+    view = RoleSelectDropdownView(ctx=ctx,roleType=roleType, timeout=180.0)
     try:
       await ctx.send("Pick your role", view=view)
     except discord.HTTPException:
@@ -44,10 +46,30 @@ class RoleSelectDropdown(discord.ui.Select):
         await interaction.user.add_roles(role, reason="They asked for it")
 
 class RoleSelectDropdownView(discord.ui.View):
-    def __init__(self, ctx, roleType):
+    def __init__(self, ctx, roleType, timeout = 180.0):
         super().__init__()
+        self.timeout = timeout
         # Adds the dropdown to our view object.
         self.add_item(RoleSelectDropdown(ctx=ctx,roleType=roleType))
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
 
 def setup(client):
     client.add_cog(Menus(client))

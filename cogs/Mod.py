@@ -323,63 +323,8 @@ Hope you don't enjoy the experience
         embed.add_field(name="reason:", value=reason, inline=False)
         await ctx.send(embed=embed)
 
-    # Ash's all-new EmojiRoles Command™!
-    @commands.command(name="emojiroles")
-    @commands.has_permissions(manage_messages=True)
-    async def emojiroles(self, ctx, title: str, channel: discord.TextChannel, *args):
-        # Checks if the syntax is right (proper length)
-        if len(args) % 2 != 0:
-            await ctx.send(
-                "Sorry, you are not following the correct syntax. SYNTAX: `?emojiroles <title> #channel <emoji> <rolename> <emoji> <rolename>`"
-            )
-            return
-
-        # Returns list of roles
-        allroles = [role.name for role in ctx.guild.roles]
-        roles = []
-        newroles = []
-        emojis = []
-        for i in range(len(args)):
-
-            # role loop
-            if i % 2 != 0:
-                if args[i] in allroles:
-                    roles.append(args[i])
-                else:
-                    await ctx.send(
-                        "Sorry, you are not following the correct syntax. SYNTAX: `?emojiroles <title> #channel <emoji> <rolename> <emoji> <rolename>`\n\nMake sure to enter the **exact** role names and emojis. Thank you!"
-                    )
-                    return
-
-            # emoji loop
-            if i % 2 == 0:
-                if re.search(
-                    "<(?P<animated>a?):(?P<name>[a-zA-Z0-9_]{2,32}):(?P<id>[0-9]{18,22})>",
-                    args[i],
-                ):
-                    emojis.append(args[i])
-                else:
-                    await ctx.send(
-                        "Sorry, you are not following the correct syntax. SYNTAX: `?emojiroles <title> #channel <emoji> <rolename> <emoji> <rolename>`\n\nMake sure to enter the **exact** role names and emojis. Thank you!"
-                    )
-                    return
-
-        # actual roles from role names
-        for role in roles:
-            role = discord.utils.get(ctx.guild.roles, name=role)
-            newroles.append(role)
-
-        # embed formatting
-        nl = "\n"
-        embed = discord.Embed(
-            title=title,
-            description="React to give yourself a role.\n\n"
-            + f"{nl.join([emoji + role.mention for emoji, role in zip(emojis, newroles)])}",
-        )
-
-        await channel.send(embed=embed)
-
     # Ash's all-new Purge Command™!
+    # yeep thanks for this - ghouldrago
     @commands.command(name="purge")
     @commands.has_permissions(manage_messages=True)
     async def purge(self, ctx, amount=30):

@@ -20,12 +20,12 @@ class Misc(commands.Cog):
             for member in role.members:
                 await member.send("Time To Bump")
 
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        if isinstance(error, commands.CommandNotFound):
-            return
-        
-        await ctx.send(error)
+    #@commands.Cog.listener()
+    #async def on_command_error(self, ctx, error):
+    #    if isinstance(error, commands.CommandNotFound):
+    #        return
+    #    
+    #    await ctx.send(error)
 
     @commands.Cog.listener()
     async def on_member_join(self, member):

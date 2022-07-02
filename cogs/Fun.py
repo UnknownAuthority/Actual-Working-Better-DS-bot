@@ -12,13 +12,16 @@ def get_quote():
     json_data = json.loads(response.text)
     quote = json_data[0]["q"] + " -" + json_data[0]["a"]
     return quote
-
+def get_insult():
+  response = requests.get("https://evilinsult.com/generate_insult.php")
+  return response.text
 
 # compile the regex
 pattern = re.compile(r"ree+\b", re.IGNORECASE)
 
 
 class Fun(commands.Cog):
+    """Fun, non-serious commands, not made for practical purposes"""
     def __init__(self, client):
         self.client = client
         # get all the specialcommmands from the json file
@@ -29,6 +32,9 @@ class Fun(commands.Cog):
     @slash_command()
     async def hello(self, ctx):
         await ctx.respond("hello!")
+    @commands.command()
+    async def insult(self, ctx):
+      await ctx.send(get_insult())
 
     def im_sad_gen(self):
         return f"Don't be sad, here have a quote \n {get_quote()}"
@@ -74,11 +80,14 @@ class Fun(commands.Cog):
             if command in keyword_processor.extract_keywords(messagecont):
                 # if the command is anything other than "im sad"
                 # send the usual response
-                if command != "im sad":
-                    await message.channel.send(response)
-                    break
-                # if it is "im sad" then send the response generator
-                await message.channel.send(self.im_sad_gen())
+                # if it is "im sad" then send the response generator               
+                if command == "im sad":
+                  await message.channel.send(self.im_sad_gen())
+                  break
+                elif command == "try to insult me you bot":
+                  await message.channel.send(get_insult())
+                  break
+                await message.channel.send(response)
             # if the message is a ree(with as many e's)
             # we need to regex pattern match it
             elif pattern.match(messagecont):
@@ -89,9 +98,10 @@ class Fun(commands.Cog):
                 break
   
     @commands.command(aliases=["special"])
-    async def specialCommands(self, ctx):
+    async def specialCommands(self, ctx):      
         "Lists Commands Without any prefix, alias = noprefix"
-        embed = discord.Embed(title="All Special Commands")
+        
+        embed = discord.Embed(title="All Special Commands", description= "List of all phrases that'll trigger the bot")
         for x, y in self.Dictwithstuff.items():
             embed.add_field(name=x, value=y)
         embed.add_field(
@@ -101,7 +111,7 @@ class Fun(commands.Cog):
 
         await ctx.send(embed=embed)
     
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.is_owner()
     async def cc(self, ctx, *, message: str):
         """
@@ -137,7 +147,7 @@ class Fun(commands.Cog):
         """
         Turns an image to ascii and sends a file containing the result
 
-        syntax = ?imgtoascii (you can add an image or it'll convrt your avatar)
+        syntax = ?imgtoascii (you can add an image or it'll convert your avatar)
         """
         import random
 
@@ -157,7 +167,7 @@ class Fun(commands.Cog):
         if message.attachments:
             await message.attachments[0].save(name)
         else:
-            await message.author.avatar.url.save(name)
+            await message.author.avatar.save(name)
         # make a text file with the random name
         with open(f"{name}.txt", "w") as f:
             # write
